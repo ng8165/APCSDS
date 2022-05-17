@@ -1,0 +1,224 @@
+// The FancyCalc class can calculate powers, squares, GCDs, factorials,
+// Fibonacci numbers, square roots, and it can determine if a number is prime.
+// @author Nelson Gou
+// @author 9/10/21
+public class FancyCalc
+{
+    // Recursively calculates powers in the form of base^exponent.
+    // @param base the base
+    // @param exponent the exponent
+    // @return the value of base^exponent
+    public pow(base, exponent)
+    {
+        if (exponent == 0) // base case
+            return 1;
+        else
+            return base * this.pow(base, exponent-1);
+    }
+
+    // Squares a number.
+    // @param n the number
+    // @return n^2
+    public square(n) {
+        return n*n;
+    }
+
+    // Recursively calculates powers in an optimized manner.
+    // @param base the base
+    // @param exponent the exponent
+    // @return base^exponent
+    public fastPow(base, exponent)
+    {
+        // base case
+        if (exponent == 0)
+            return 1;
+
+        square = this.square(this.fastPow(base, exponent/2));
+        
+        if (exponent % 2 == 0)
+            return square;
+        else
+            return base * square;
+    } 
+
+    // Returns the GCD (greatest common divisor) of two numbers
+    // using the Euclidean Algorithm.
+    // @param num1 one of the numbers
+    // @param num2 the other number
+    // @return the GCD of num1 and num2
+    public gcd(num1, num2) {
+        // base case
+        if (num2 == 0) {
+            return num1;
+        }
+
+        return this.gcd(num2, num1%num2);
+    }
+
+    // Determines if a number is prime.
+    // @param num the number
+    // @return true if num is prime; otherwise false
+    public isPrime(num)
+    {
+        if (num < 2)
+            return false;
+        
+        return this.helpPrime(num, 2);
+    }
+
+    // Private recursive helper function for isPrime that tests if
+    // num is divisble by divisor (where divisor is from 2 to n-1).
+    // @param num the number
+    // @param divisor the divisor
+    // @return true if num is prime; otherwise false
+    private helpPrime(num, divisor)
+    {
+        if (divisor >= num)
+            return true;
+
+        if (num % divisor == 0)
+            return false;
+
+        return this.helpPrime(num, divisor+1);
+    }
+
+    // Calculates the factorial of n (n!).
+    // @param n the number
+    // @return n!
+    public fact(n)
+    {
+        return this.factHelp(n, 1);
+    }
+
+    // Private helper function to recursively calculate n!.
+    // @param n the number
+    // @param result the result of n!
+    // @return n!
+    private factHelp(n, result)
+    {
+        if (n == 0)
+            return result;
+        else
+            return this.factHelp(n-1, n*result);
+    }
+
+    // Recursively finds the nth Fibonacci number.
+    // @param n the number
+    // @return the nth Fibonacci number.
+    public fib(n) {
+        if (n <= 2)
+            return 1;
+        else
+            return this.fib(n-1) + this.fib(n-2);
+    }
+    
+    // Calculates the square root of a number.
+    // @param n the number
+    // @return the square root of n
+    public sqrt(n) {
+        return this.guessSqrt(n, 1);
+    }
+
+    // Private helper for guessSqrt() that returns the average of two numbers.
+    // @param num1 first number
+    // @param num2 second number
+    // @return the average of num1 and num2
+    private avg(num1, num2) {
+        return (num1+num2)/2;
+    }
+
+    // Private helper for guessSqrt() that determines if the
+    // recursion should stop (uses Newton's square root method).
+    // @param guess guess for the square root
+    // @param division n/guess, determines if recursion should stop
+    // @return true if the recursion should stop; otherwise false.
+    private shouldStop(guess, division) {
+        diff = division-guess;
+        return diff == 0 || diff == 1 || diff == -1;
+    }
+
+    // Recursively uses Newton's square root method to determine the square root of n.
+    // @param n the number
+    // @param guess guess for the square root
+    // @return the greatest integer whose square is no larger than our number
+    private guessSqrt(n, guess) {
+        division = n/guess;
+
+        if (this.shouldStop(guess, division))
+            return guess;
+        
+        return this.guessSqrt(n, this.avg(guess, division));
+    }
+
+    // Quickly calculates the nth Fibonacci number.
+    // @param n the number
+    // @return the nth Fibonacci number
+    public fastFib(n) {
+        return this.fastFibHelper(n, 0, 1);
+    }
+
+    // Private helper function that uses tail recursion
+    // to calculate the nth Fibonacci number.
+    // @param n the number of iterations left
+    // @param n1 the current Fibonacci number
+    // @param n2 the next Fibonacci number
+    // @return the nth Fibonacci number
+    private fastFibHelper(n, n1, n2) {
+        // base case
+        if (n <= 0) return n1;
+
+        return this.fastFibHelper(n-1, n2, n1+n2);
+    }
+
+    // Recursive function that does not use an if statement (short-circuits).
+    // @param n a number
+    // @return false
+    public count(n) {
+        return n > 0 && this.count(n-1);
+    }
+
+    // Calculates the sum of a Enumerator's values.
+    // @param enum an Enumerator
+    // @return the sum of the Enumerator's values
+    public countEnumerator(enum) {
+        if (!enum.hasNext()) {
+            return 0;
+        }
+
+        return enum.next() + this.countEnumerator(enum);
+    }
+}
+
+// The Enumerator class iterates from a low bound to a high bound by incrementing.
+// @author Nelson Gou
+// @version 8/31/2021
+public class Enumerator {
+    private val;
+    private highBound;
+
+    // Creates an Enumerator with low bound set to current value and high bound
+    // set to the high bound attribute.
+    // @param low low bound
+    // @param high high bound
+    public Enumerator(low, high) {
+        val = low;
+        highBound = high;
+    }
+
+    // Determines if there is a next number (not gone out of bounds).
+    // @postcondition val and highBound are unchanged
+    // @return true if there is another number, otherwise false.
+    public hasNext() {
+        return val <= highBound;
+    }
+
+    // Returns the next value if available, otherwise does nothing.
+    // @postcondition val has been incremented or is out of bounds and unchanged
+    // @return original value of val before being incremented
+    public next() {
+        if (this.hasNext()) {
+            val = val + 1;
+            return val - 1;
+        }
+    }
+}

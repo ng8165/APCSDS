@@ -1,0 +1,164 @@
+// The ListUtil class performs useful actions on linked lists,
+// such as add, remove, size, get, reverse, and makeList.
+// @author Nelson Gou
+// @version 9/27/21
+public class ListUtil {
+    // Returns the size of a linked list.
+    // @param list reference to the front of a linked list
+    // @return the size of the linked list
+    public size(list) {
+        if (list == null) {
+            return 0;
+        } else {
+            return 1+this.size(list.getNext());
+        }
+    }
+
+    // Returns the value at a specific index in the linked list.
+    // @param list reference to the front of a linked list
+    // @param idx requested index
+    // @return the value of the idx-th element in the list; otherwise null
+    public get(list, idx) {
+        if (list == null) {
+            return null;
+        }
+
+        if (idx <= 0) {
+            return list.getValue();
+        } else {
+            return this.get(list.getNext(), idx-1);
+        }
+    }
+
+    // Makes a list with a specified number of copies of value.
+    // @param copies number of copies
+    // @param value value of each element
+    // @return the head of the new linked list
+    public makeList(copies, value) {
+        if (copies <= 0) {
+            return null;
+        } else {
+            return new ListNode(value, this.makeList(copies-1, value));
+        }
+    }
+
+    // Adds an element (with value set to the input value) to the end of the list.
+    // There are no restrictions for the input list.
+    // @param list reference to the front of the linked list
+    // @param value of the new element
+    // @return the same linked list but with a new element added at the end
+    public add(list, value) {
+        if (list == null) {
+            return new ListNode(value, null);
+        } else {
+            list.setNext(this.add(list.getNext(), value));
+            return list;
+        }
+    }
+
+    // Removes all elements with the value of the input value in a linked list.
+    // There are no restrictions for the input list.
+    // @param list reference to the front of the linked list
+    // @param value value of the elements to be removed
+    // @return the same linked list but with all elements of value removed
+    public remove(list, value) {
+        if (list == null) {
+            return null;
+        }
+
+        if (list.getValue() == value) {
+            return this.remove(list.getNext(), value);
+        } else {
+            list.setNext(this.remove(list.getNext(), value));
+            return list;
+        }
+    }
+
+    // Recursively reverses a linked list.
+    // There are no restrictions for the input list.
+    // @param list reference to the front of the linked list
+    // @return the front of the reversed linked list
+    public reverse(list) {
+        if (list == null || list.getNext() == null) {
+            return list;
+        }
+
+        reversed = this.reverse(list.getNext());
+
+        list.getNext().setNext(list);
+        list.setNext(null);
+
+        return reversed;
+    }
+}
+
+// The Memorizer class uses a linked list to memorize elements it has already seen.
+// @author Nelson Gou
+// @version 9/27/21
+public class Memorizer {
+    private list;
+
+    // Creates a Memorizer with list set to null (no elements memorized yet).
+    public Memorizer() { list = null; }
+
+    // Recursive helper function for the seen() method. Determines if the value is
+    // present in the linked list.
+    // @param list reference to the front of the linked list
+    // @param value the number to look for
+    // @return true if the value is present; otherwise false
+    private contains(list, value) {
+        if (list == null) {
+            return false;
+        }
+
+        if (list.getValue() == value) {
+            return true;
+        } else {
+            return this.contains(list.getNext(), value);
+        }
+    }
+
+    // Determines if value is present in the linked list.
+    // @param value the requested value
+    // @return true if the value is present; otherwise false
+    public seen(value) {
+        if (!this.contains(list, value)) {
+            list = new ListNode(value, list);
+            return false;
+        }
+        
+        return true;
+    }
+}
+
+// The ListNode class is a node in a linked list (has value and next).
+// @author Linked Lists in Javatown Homework
+// @author Nelson Gou (added JavaDoc)
+// @version 9/27/2021
+public class ListNode
+{
+    private value;
+    private next;
+    
+    // Constructs a ListNode with a value and a next reference.
+    // @param initValue value of the ListNode
+    // @param initNext next element in the linked list
+    public ListNode(initValue, initNext)
+    { value = initValue; next = initNext; }
+    
+    // Getter for value of the element.
+    // @return value of the element.
+    public getValue() { return value; }
+
+    // Getter for the next element.
+    // @return reference to the next element
+    public getNext() { return next; }
+    
+    // Setter for value of the element.
+    // @param theNewValue new value for the element.
+    public setValue(theNewValue) { value = theNewValue; }
+
+    // Setter for the next element.
+    // @param theNewNext new next element
+    public setNext(theNewNext) { next = theNewNext; }
+}

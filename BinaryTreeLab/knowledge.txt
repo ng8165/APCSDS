@@ -1,0 +1,27 @@
+Animal
+Land Animal
+Wild Animal
+lion
+$
+$
+Dog
+$
+$
+Fish
+Salmon
+$
+$
+Dolphin
+$
+$
+Object
+Laptop
+$
+$
+Stupid
+Om Nom
+$
+$
+Barack Obama
+$
+$

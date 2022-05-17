@@ -1,0 +1,48 @@
+// The Towers class completes the Towers of Hanoi problem recursively.
+// @author Nelson Gou
+// @version 9/8/21
+public class Towers
+{
+	private numDiscs;
+
+	// Creates a Towers with numDiscs set as num.
+	// @param num value of numDiscs
+	public Towers(num)
+	{
+		numDiscs = num;
+	}
+
+	// Moves a Tower of n discs from src to dest using temp
+	// @param n number of discs
+	// @param src source tower
+	// @param dest destination tower
+	// @param temp auxiliary/temporary tower
+	// @return "Base Case! No discs to move" if base case, otherwise nothing
+	public moveTower(n, src, dest, temp)
+	{
+		if (n > 0)
+		{
+			this.moveTower(n-1, src, temp, dest);
+			this.moveDisc(src, dest);
+			this.moveTower(n-1, temp, dest, src);
+		}
+		else
+			return "Base Case! No discs to move";
+	}
+
+	// Moves the top disc from src to dest.
+	// @param src source tower
+	// @param dest destination tower
+	// @return "moving 1 disc from src to dest"
+	public moveDisc(src, dest)
+	{
+		return "moving 1 disc from " + src + " to " + dest;
+	}
+
+	
+	// Completes the Towers of Hanoi problem with numDiscs discs.
+	public solve()
+	{
+		this.moveTower(numDiscs, 1, 2, 3);
+	}
+}

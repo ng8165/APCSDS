@@ -1,0 +1,14 @@
+Return a non-negative real number indicating the similarity of two 
+    linguistic signatures. The smaller the number the more similar the 
+    signatures. Zero indicates identical signatures.
+    sig1 and sig2 are 6 element lists with the following elements
+    0  : author name (a string)
+    1  : average word length (float)
+    2  : TTR (float)
+    3  : Hapax Legomana Ratio (float)
+    4  : average sentence length (float)
+    5  : average sentence complexity (float)
+    weight is a list of multiplicative weights to apply to each
+    linguistic feature. weight[0] is ignored.
+
+weights = [0, 11, 33, 50, 0.4, 4]

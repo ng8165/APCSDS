@@ -1,0 +1,239 @@
+// The Calculator class acts like a normal calculator (add, subtract, multiply)
+// and also has square, determine if odd, maximize, and absolute value operations.
+// @author Nelson Gou
+// @version 8/30/2021
+public class Calculator {
+    // Adds two numbers.
+    // @param num1 an addend
+    // @param num2 an addend
+    // @return the sum of num1 and num2
+    public add(num1, num2) {
+        return num1 + num2;
+    }
+
+    // Subtracts two numbers.
+    // @param num1 the minuend
+    // @param num2 the subtrahend
+    // @return the difference of num1 and num2
+    public subtract(num1, num2) {
+        return num1 - num2;
+    }
+
+    // Multiplies two numbers.
+    // @param num1 the multiplicand
+    // @param num2 the multipler
+    // @return the product of num1 and num2
+    public multiply(num1, num2) {
+        return num1 * num2;
+    }
+
+    // Squares a number.
+    // @param num the number which will be squared
+    // @return the square of num
+    public square(num) {
+        return num * num;
+    }
+
+    // Determines if a number is odd or not.
+    // @param num the inputted number
+    // @return true if num is odd, otherwise false.
+    public isOdd(num) {
+        return num%2 != 0;
+    }
+
+    // Returns the maximum of two numbers.
+    // @param num1 one of the numbers
+    // @param num2 another number
+    // @return num1 if it is bigger than num2, otherwise num2.
+    public max(num1, num2) {
+        if (num1 >= num2) {
+            return num1;
+        } else {
+            return num2;
+        }
+    }
+
+    // Returns the absolute value of a number.
+    // @param num the inputted number
+    // @return the absolute value of num
+    public abs(num) {
+        if (num >= 0) {
+            return num;
+        } else {
+            return -num;
+        }
+    }
+}
+
+// The Box class stores a value (which have getters/setters).
+// @author Nelson Gou
+// @version 8/30/2021
+public class Box {
+    private value;
+
+    // Creates a Box with value as num.
+    // @param num what value will be
+    public Box(num) {
+        this.setValue(num);
+    }
+
+    // Setter for value.
+    // @param num new contents of value
+    public setValue(num) {
+        value = num;
+    }
+
+    // Getter for value.
+    // @return value
+    public getValue() {
+        return value;
+    }
+}
+
+// The Counter class counts a value.
+// @author Nelson Gou
+// @version 8/30/2021
+public class Counter {
+    private count;
+    
+    // Creates a Counter with the count set to 0.
+    public Counter() {
+        this.reset();
+    }
+
+    // Increments count.
+    // @postcondition count should be incremented by one
+    public tick() {
+        count = count+1;
+    }
+
+    // Getter for count.
+    // @return count
+    public getCount() {
+        return count;
+    }
+
+    // Resets count to 0.
+    // @postcondition the count is set to 0
+    public reset() {
+        count = 0;
+    }
+}
+
+// The Flipper class flips a boolean value.
+// @author Nelson Gou
+// @version 8/30/2021
+public class Flipper {
+    private flip;
+
+    // Creates a flipper with flip as false.
+    public Flipper() {
+        flip = false;
+    }
+
+    // Flips the flip variable.
+    // @postcondition flip should be flipped (different from before)
+    // @return current value of flip
+    public next() {
+        flip = !flip;
+        return flip;
+    }
+}
+
+// The Fibber class returns the next number in Fibonacci.
+// @author Nelson Gou
+// @version 8/30/2021
+public class Fibber {
+    private prev;
+    private curr;
+
+    // Creates a Fibber which is ready to output a sequence
+    // of Fibonacci numbers.
+    public Fibber() {
+        prev = 0;
+        curr = 1;
+    }
+
+    // Returns the next Fibonacci number.
+    // @postcondition prev and curr should be updated.
+    // @return the next fibonacci number (starting from 1, 1, 2, ...)
+    public next() {
+        currNext = curr;
+        curr = prev+curr;
+        prev = currNext;
+        return currNext;
+    }
+}
+
+// The Container class contains a number named stuff.
+// @author JavaTown Objects Lab
+// @author Nelson Gou (added Setter for stuff)
+// @version 8/30/2021
+public class Container
+{
+    private stuff;
+    
+    // Creates a Container with stuff initialized as s.
+    // @param s the value of stuff
+    public Container(s) { stuff = s; }
+
+    // Getter for stuff.
+    // @return the value of stuff
+    public getStuff() { return stuff; }
+
+    // Setter for stuff. (added by Nelson Gou)
+    // @param s the new value of stuff
+    public setStuff(s) { stuff = s; }
+}
+
+// The Swapper class swaps the values of two container classes.
+// @author Nelson Gou
+// @version 8/30/2021
+public class Swapper {
+    // Swaps two Containers.
+    // @param c1 a Container
+    // @param c2 a Container
+    // @precondition c1 and c2 are non-null Containers
+    // @postcondition c1 and c2 should be swapped (stuff attributes should be swapped)
+    public swap(c1, c2) {
+        // This code can swap in-place with a setter (which must be added).
+        // The references cannot be changed, so this is the only way
+        c1Stuff = c1.getStuff();
+        c1.setStuff(c2.getStuff());
+        c2.setStuff(c1Stuff);
+    }
+}
+
+// The Enumerator class iterates from a low bound to a high bound by incrementing.
+// @author Nelson Gou
+// @version 8/31/2021
+public class Enumerator {
+    private val;
+    private highBound;
+
+    // Creates an Enumerator with low bound set to current value and high bound
+    // set to the high bound attribute.
+    // @param low low bound
+    // @param high high bound
+    public Enumerator(low, high) {
+        val = low;
+        highBound = high;
+    }
+
+    // Determines if there is a next number (not gone out of bounds).
+    // @postcondition val and highBound are unchanged
+    // @return true if there is another number, otherwise false.
+    public hasNext() {
+        return val <= highBound;
+    }
+
+    // Returns the next value if available, otherwise does nothing.
+    // @postcondition val has been incremented or is out of bounds and unchanged
+    // @return original value of val before being incremented
+    public next() {
+        if (this.hasNext()) {
+            val = val + 1;
+            return val - 1;
+        }
+    }
+}
